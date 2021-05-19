@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>slider</title>
+  <script src="vue.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+  <!-- Latest compiled and minified CSS -->
+  <!-- <link rel="stylesheet" href="bootstrap.min.css"> -->
+
+<script src="jquery.min.js"></script>
+<!-- <script src="bootstrap.min.js"></script> -->
+</head>
+<body>
+<div id="app" class="container">
+ 
+  <div class="row">
+
+    <button @click="back"> <<< </button>
+
+     <template v-for="(row, index) in rows">
+
+
+
+        <img @click="goto(index)" :src="row.botao_imagem_organizacoesinternacionais" class="img-fluid" alt="">
+     </template>
+  </div>
+ 
+</div>
+      
+<script>new Vue({
+  el: '#app',
+  data:{
+    rows:[],
+    curIndex : 0,
+  },
+  mounted() {
+        var self = this;
+        axios
+            .get('https://dgav.space/wp-json/acf/v3/orginternacionais')
+            .then(function(res) {
+
+              self.rows = res.data[0].acf.grid_botao_organizacoesinternacionais
+                
+
+            })
+            
+    },
+  
+ 
+methods:{
+
+goto(v){
+
+  // var f = [0];
+  // this.rows = this.rows.slice(v+4,4);
+  this.rows = this.rows.slice(v,v+4);
+
+  this.curIndex = v;
+
+  console.log(v);
+
+}  ,
+back(){
+  this.rows = this.rows.slice(this.curIndex-4,4);
+
+  console.log(this.curIndex-4);
+}
+},
+
+    });
+
+
+    
+  
+
+</script>
+
+
+</body>
+</html>

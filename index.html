@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Probabilty</title>
+  <script src="vue.js"></script>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="bootstrap.min.css">
+
+<script src="jquery.min.js"></script>
+<script src="bootstrap.min.js"></script>
+</head>
+<body>
+
+<div id="app" class="container" style="margin-top:50px;">
+<h1 class="text-center">PROBABILTY FINDER FOR TWO DICES</h1>
+
+<input class="form-control" v-model.number.lazy="given_input" placeholder="Enter your number to find Probability">
+
+<br>
+<div v-for="le in loop" class="list-group">
+<li class="list-group-item">{{le.i}} + {{le.j}} = {{le.i + le.j}} </li>
+</div>
+<span v-show="counter !== 0">Probability is {{counter}}</span>
+
+</div>
+
+
+<script>
+var app = new Vue({
+el: '#app',
+data: {
+  given_input: '',
+  loop:[],
+},
+computed:{
+  counter(){
+    var counter = 0;
+    var i = 1;
+    var j = 1; 
+
+    this.loop = [];
+
+    for (i = 1 ; i <= 6; i++) {
+      for (j = 1 ; j <= 6; j++) {
+        if(this.given_input == i+j){
+          counter++;
+          this.loop.push({i,j});
+        }
+     }
+  }
+
+  return counter;
+
+  }
+}
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>slider</title>
+  <script src="vue.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="bootstrap.min.css">
+
+<script src="jquery.min.js"></script>
+<script src="bootstrap.min.js"></script>
+</head>
+<body>
+<div id="app" class="container">
+ 
+  <div class="row">
+     <template v-for="(row, index) in rows">
+      <div v-for="item in paginationSlider" class="col-md-3">
+        <img @click="goto(item.botao_link_organizacoesinternacionais)" :src="item.botao_imagem_organizacoesinternacionais" class="img-fluid" alt="">
+      </div>
+    </template>
+  </div>
+ 
+</div>
+      
+<script>
+new Vue({
+  el: '#app',
+  data:{
+    rows:[]
+  },
+  mounted() {
+        var self = this;
+        axios
+            .get('https://dgav.space/wp-json/acf/v3/orginternacionais')
+            .then(function(res) {
+                self.rows = res.data;
+            })
+    },
+  
+  computed: {
+      paginationSlider: function(){
+
+        // var i = 0
+        // var f = 4
+        // var field = this.rows[0].acf.grid_botao_organizacoesinternacionais
+        
+        // return field.slice(0,4)
+}
+ 
+}
+    });
+</script>
+
+
+</body>
+</html>
